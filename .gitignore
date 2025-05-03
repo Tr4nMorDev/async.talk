@@ -1,0 +1,53 @@
+# Node.js (frontend)
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env
+frontend/.DS_Store
+
+# Java (backend)
+backend/target/
+backend/.idea/
+backend/.classpath
+backend/.project
+backend/.settings/
+backend/.env
+backend/*.iml
+
+# Python (AI suggestion)
+ai-suggestion/__pycache__/
+ai-suggestion/*.pyc
+ai-suggestion/env/
+ai-suggestion/.venv/
+ai-suggestion/.env
+
+# Redis (tùy theo setup)
+redis/dump.rdb
+redis/*.log
+
+# Docker
+*.log
+*.pid
+*.sock
+*.tar
+.env
+docker-compose.override.yml
+
+# Prometheus & Grafana
+monitoring/prometheus/data/
+monitoring/grafana/data/
+
+# OS & Editor Junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# VSCode
+.vscode/
+
+# JetBrains IDEs (IntelliJ, PyCharm, etc.)
+.idea/
+
+# Kubernetes config (tạm)
+*.yaml~
