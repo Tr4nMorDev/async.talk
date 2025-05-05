@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  sweetchat:
+    container_name: Sweetchat
+    image: postgres:latest
+    ports:
+      - "5433:5432" # ánh xạ cổng ngoài 5433 vào cổng mặc định của PostgreSQL (5432)
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db_sweetchat
+    volumes:
+      - sweetchat_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  sweetchat_data:
