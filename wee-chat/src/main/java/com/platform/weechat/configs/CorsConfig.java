@@ -17,3 +17,4 @@ public class CorsConfig implements WebFluxConfigurer {
                 .allowCredentials(true);
     }
 }
+

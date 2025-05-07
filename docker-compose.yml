@@ -1,18 +1,58 @@
 version: "3.8"
 
 services:
-  sweetchat:
-    container_name: Sweetchat
+  # --- PostgreSQL cho User Service ---
+  postgres_user:
+    container_name: postgres_user
     image: postgres:latest
     ports:
-      - "5433:5432" # ánh xạ cổng ngoài 5433 vào cổng mặc định của PostgreSQL (5432)
+      - "5435:5432" # Changed from 5433 to 5435
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db_sweetchat
+      POSTGRES_DB: db_userservice
     volumes:
-      - sweetchat_data:/var/lib/postgresql/data
+      - user_data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  # --- PostgreSQL cho Message Service ---
+  postgres_message:
+    container_name: postgres_message
+    image: postgres:latest
+    ports:
+      - "5436:5432" # Changed from 5434 to 5436
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db_messageservice
+    volumes:
+      - message_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # --- Zookeeper cho Kafka ---
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  # --- Kafka ---
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
 volumes:
-  sweetchat_data:
+  user_data:
+  message_data:
