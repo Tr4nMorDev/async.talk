@@ -5,14 +5,14 @@ my-app/dist/
 my-app/.env
 my-app/.DS_Store
 
-# Java (wee-chat)
-wee-chat/target/
-wee-chat/.idea/
-wee-chat/.classpath
-wee-chat/.project
-wee-chat/.settings/
-wee-chat/.env
-wee-chat/*.iml
+# Java (src)
+src/target/
+src/.idea/
+src/.classpath
+src/.project
+src/.settings/
+src/.env
+src/*.iml
 
 # Python (AI suggestion)
 ai-suggestion/__pycache__/
