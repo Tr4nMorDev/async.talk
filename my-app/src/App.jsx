@@ -7,7 +7,10 @@ function App() {
   const [count, setCount] = useState(0);
   useEffect(() => {
     fetch("/api/users")
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res); // Log the response to see what you are getting.
+        return res.json();
+      })
       .then((data) => console.log("User data:", data))
       .catch((err) => console.error(err));
   }, []);
