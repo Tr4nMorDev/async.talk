@@ -23,8 +23,8 @@ jobs:
       - name: Build containers
         run: docker-compose -f docker-compose.yml build
 
-      - name: Bring up services
-        run: docker-compose -f docker-compose.yml up -d
+      # - name: Bring up services
+      #   run: docker-compose -f docker-compose.yml up -d
       # - name: Wait for Kafka to be ready
       #   run: |
       #     until docker exec kafka kafka-topics --list --bootstrap-server localhost:9092; do
