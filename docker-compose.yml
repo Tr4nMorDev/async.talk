@@ -14,37 +14,37 @@ services:
       - user_data:/var/lib/postgresql/data
     restart: unless-stopped
 
-  postgres_message:
-    container_name: postgres_message
-    image: postgres:latest
-    ports:
-      - "5436:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db_messageservice
-    volumes:
-      - message_data:/var/lib/postgresql/data
-    restart: unless-stopped
+  # postgres_message:
+  #   container_name: postgres_message
+  #   image: postgres:latest
+  #   ports:
+  #     - "5436:5432"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: db_messageservice
+  #   volumes:
+  #     - message_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
 
-  frontend:
-    build:
-      context: ./my-app
-    container_name: frontend
-    ports:
-      - "5173:80"
-    restart: unless-stopped
+  # frontend:
+  #   build:
+  #     context: ./my-app
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:80"
+  #   restart: unless-stopped
 
   # --- User Service ---
-  user-service:
-    build:
-      context: ./src/user-service
-    container_name: user-service
-    ports:
-      - "8081:8081"
-    depends_on:
-      - postgres_user
-    restart: unless-stopped
+  # user-service:
+  #   build:
+  #     context: ./src/user-service
+  #   container_name: user-service
+  #   ports:
+  #     - "8081:8081"
+  #   depends_on:
+  #     - postgres_user
+  #   restart: unless-stopped
 
   kong-database:
     image: postgres:13
@@ -53,6 +53,8 @@ services:
       POSTGRES_USER: kong
       POSTGRES_DB: kong
       POSTGRES_PASSWORD: kong
+    ports:
+      - "5433:5432"
     volumes:
       - kong_data:/var/lib/postgresql/data
     restart: unless-stopped
@@ -75,8 +77,8 @@ services:
       - "8001:8001" # Admin API
     depends_on:
       - kong-database
-      - user-service
-      - frontend
+      # - user-service
+      # - frontend
     command: kong migrations bootstrap && kong reload
     restart: unless-stopped
 
