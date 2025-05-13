@@ -5,9 +5,14 @@ scrape_configs:
   - job_name: "user-service"
     metrics_path: "/actuator/prometheus"
     static_configs:
-      - targets: ["host.docker.internal:8081"] # Hoặc tên container nếu trong Docker network
+      - targets: ["host.docker.internal:8081"]
 
   - job_name: "message-service"
     metrics_path: "/actuator/prometheus"
     static_configs:
       - targets: ["host.docker.internal:8082"]
+
+  - job_name: "kong"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["kong:8001"] # hoặc dùng host.docker.internal nếu Prometheus chạy ngoài Docker
