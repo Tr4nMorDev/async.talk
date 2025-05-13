@@ -4,17 +4,21 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [message, setMessage] = useState("Loading...");
+
   useEffect(() => {
-    fetch("/api/users")
-      .then((res) => {
-        console.log(res); // Log the response to see what you are getting.
-        return res.json();
-      })
-      .then((data) => console.log("User data:", data))
-      .catch((err) => console.error(err));
+    fetch("http://localhost:8000/user/hello")
+      .then((res) => res.text())
+      .then((data) => setMessage(data))
+      .catch((err) => setMessage("Error: " + err.message));
   }, []);
-  return <h1>Test Nginx Gateway Routing</h1>;
+
+  return (
+    <div>
+      <h1>Kết nối tới Kong Gateway</h1>
+      <p>{message}</p>
+    </div>
+  );
 }
 
 export default App;
